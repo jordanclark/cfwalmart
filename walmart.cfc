@@ -41,7 +41,7 @@ component {
 
 	struct function apiRequest( required string api ) {
 		var wait= 0;
-		var response= {};
+		var http= {};
 		var item= "";
 		var out= {
 			args= arguments
@@ -109,7 +109,7 @@ component {
 					};
 				}
 			}
-			cfhttp( charset="UTF-8", throwOnError=false, userAgent=this.userAgent, url=out.requestUrl, timeOut=this.httpTimeOut, result="response", method=out.verb ) {
+			cfhttp( result="http", method=out.verb, url=out.requestUrl, charset="UTF-8", throwOnError=false, userAgent=this.userAgent, timeOut=this.httpTimeOut ) {
 				cfhttpparam( name="Authorization", type="header", value="Basic #ToBase64('#this.apiClientID#:#this.apiClientSecret#')#" );
 				if ( len( this.apiAccessToken ) ) {
 					cfhttpparam( name="WM_SEC.ACCESS_TOKEN", type="header", value=this.apiAccessToken );
@@ -130,7 +130,7 @@ component {
 				}
 			}
 		}
-		out.response= toString( response.fileContent );
+		out.response= toString( http.fileContent );
 		out.statusCode = http.responseHeader.Status_Code ?: 500;
 		this.debugLog( out.statusCode );
 		if ( left( out.statusCode, 1 ) == 4 || left( out.statusCode, 1 ) == 5 ) {
