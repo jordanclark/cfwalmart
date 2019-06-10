@@ -58,9 +58,9 @@ component {
 		};
 		out.requestUrl &= listRest( out.args.api, " " );
 		structDelete( out.args, "api" );
-		//  replace {var} in url 
+		// replace {var} in url 
 		for ( item in out.args ) {
-			//  strip NULL values 
+			// strip NULL values 
 			if ( isNull( out.args[ item ] ) ) {
 				structDelete( out.args, item );
 			} else if ( isSimpleValue( arguments[ item ] ) && arguments[ item ] == "null" ) {
@@ -141,7 +141,7 @@ component {
 		} else if ( left( out.statusCode, 1 ) == 2 ) {
 			out.success= true;
 		}
-		//  parse response 
+		// parse response 
 		try {
 			if ( out.accept == "application/json" ) {
 				out.data= deserializeJSON( out.response );
@@ -164,9 +164,9 @@ component {
 		return out;
 	}
 
-	//  ---------------------------------------------------------------------------- 
-	//  ITEMS 
-	//  ---------------------------------------------------------------------------- 
+	// ---------------------------------------------------------------------------- 
+	// ITEMS 
+	// ---------------------------------------------------------------------------- 
 
 	struct function token( string grant_type= "client_credentials" ) {
 		var out= this.apiRequest( api= "POST /token", argumentCollection= arguments );
@@ -336,9 +336,9 @@ component {
 		return this.apiRequest( api= "POST /orders/{id}/cancel", argumentCollection= arguments );
 	}
 
-	//  ---------------------------------------------------------------------------- 
-	//  HELPER 
-	//  ---------------------------------------------------------------------------- 
+	// ---------------------------------------------------------------------------- 
+	// HELPER 
+	// ---------------------------------------------------------------------------- 
 
 	string function structToQueryString( required struct stInput, string sUrl= "", boolean bEncode= true ) {
 		var sOutput= "";
