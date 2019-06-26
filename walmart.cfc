@@ -40,7 +40,6 @@ component {
 	}
 
 	struct function apiRequest( required string api ) {
-		var wait= 0;
 		var http= {};
 		var item= "";
 		var out= {
