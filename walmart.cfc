@@ -249,7 +249,7 @@ component {
 					o.total += ( i.qty * i.amount ) + i.tax;
 				}
 			}
-		} else if ( findNoCase( "Orders !found for given search parameters", out.error ) ) {
+		} else if ( findNoCase( "Orders not found for given search parameters", out.error ) ) {
 			out.success = true;
 			out.error = "";
 			out.data = {
