@@ -1,5 +1,5 @@
 component {
-	cfprocessingdirective( preserveCase=true );
+	// cfprocessingdirective( preserveCase=true );
 
 	walmart function init( required string apiClientID, required string apiClientSecret, string apiUrl= "https://marketplace.walmartapis.com/v3", string userAgent= "CFML API Agent 0.1", numeric httpTimeOut= 60 ) {
 		this.apiClientID= arguments.apiClientID;
@@ -34,7 +34,12 @@ component {
 				request.log( arguments.input );
 			}
 		} else {
-			cftrace( text=( isSimpleValue( arguments.input ) ? arguments.input : "" ), var=arguments.input, category="walmart", type="information" );
+			var info= ( isSimpleValue( arguments.input ) ? arguments.input : serializeJson( arguments.input ) );
+			cftrace(
+				var= "info"
+			,	category= "walmart"
+			,	type= "information"
+			);
 		}
 		return;
 	}
@@ -313,14 +318,14 @@ component {
 	struct function cancelFullOrder( required string id, required string reason ) {
 		var order= this.getOrder( arguments.id );
 		var lines= [];
-		for ( l in order.data.order.orderLines.orderLine ) {
+		for ( var l in order.data.order.orderLines.orderLine ) {
 			arrayAppend( lines, {
-				"lineNumber": l.lineNumber,
-				"orderLineStatuses": {
+				"lineNumber": l.lineNumber
+			,	"orderLineStatuses": {
 					"orderLineStatus": [ {
-						"status": "Cancelled",
-						"cancellationReason": arguments.reason,
-						"statusQuantity": l.orderLineQuantity,
+						"status": "Cancelled"
+					,	"cancellationReason": arguments.reason
+					,	"statusQuantity": l.orderLineQuantity
 					} ]
 				}
 			});
