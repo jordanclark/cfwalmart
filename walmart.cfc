@@ -81,7 +81,7 @@ component {
 			out.accept = "application/xml";
 			structDelete( out.args, "file" );
 		} else if ( structKeyExists( out.args, "json" ) ) {
-			out.body= serializeJSON( out.args.json );
+			out.body= serializeJSON( out.args.json, false, false );
 			structDelete( out.args, "json" );
 		}
 		this.debugLog( "API: #uCase( out.verb )#: #out.requestUrl#" );
